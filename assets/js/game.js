@@ -98,6 +98,17 @@ var startGame = function () {
 
          // Pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
          fight(pickedEnemyName);
+
+         // If player is still alive and we're not at the last enemy in the array
+         if (playerHealth > 0 && i < enemyNames.length - 1) {
+            // Ask if player wants to use the store before the next round
+            var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
+
+            // If yes, take them to the store() fucntion
+            if (storeConfirm) {
+               shop();
+            }
+         }
       } else {
          window.alert("You have lost your robot in battle! Game Over!");
          break;
@@ -105,6 +116,56 @@ var startGame = function () {
    }
    // After the loop ends, player is either out of health or enemies to fight, so run the endGame function
    endGame();
+};
+
+var shop = function () {
+   // Ask player what they would like to do
+   var shopOptionPrompt = window.prompt(
+      "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+   );
+   // Use switch to carry out action
+   switch (shopOptionPrompt) {
+      case "REFILL":
+      case "refill": {
+         if (playerMoney >= 7) {
+            window.alert("Refilling player's health by 20 for 7 dollars.");
+
+            // Increase health and decrease money
+            playerHealth = playerHealth + 20;
+            playerMoney = playerMoney - 7;
+         } else {
+            window.alert("You don't have enough money!");
+         }
+         break;
+      }
+
+      case "UPGRADE":
+      case "upgrade": {
+         if (playerMoney >= 7) {
+            window.alert("Upgrading player's attack by 6 for 7 dollars.");
+
+            // Increase attack and decrease money
+            playerAttack = playerAttack + 6;
+            playerMoney = playerMoney - 7;
+         } else {
+            window.alert("You don't have enough money!");
+         }
+         break;
+      }
+
+      case "LEAVE":
+      case "leave": {
+         window.alert("Leaving the store.");
+
+         // Do nothing, so function will end
+         break;
+      }
+      default: {
+         window.alert("You did not pick a valid option. Try again.");
+         // Call shop() againt to force player to pick a valid option shop();
+         break;
+      }
+   }
 };
 
 var playerName = window.prompt("What is your robot's name?");
@@ -117,7 +178,7 @@ console.log(playerName, playerHealth, playerAttack);
 
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
-var enemyAttack = 52;
+var enemyAttack = 12;
 
 // Adding this line to the bottom will cause the startGame()
 // function to be executed when the page loads:
