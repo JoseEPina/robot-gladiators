@@ -173,8 +173,21 @@ var randomNumber = function (min, max) {
    return value;
 };
 
+// Function to set name
+var getPlayerName = function () {
+   var name = "";
+
+   while (name === "" || name === null) {
+      name = prompt("What is your robot's name?");
+   }
+
+   console.log("Your robot's name is " + name);
+   return name;
+};
+
+/* GAME INFORMATION / VARIABLES */
 var playerInfo = {
-   name: window.prompt("What is your robot's name?"),
+   name: getPlayerName(),
    health: 100,
    attack: 10,
    money: 10,
@@ -210,6 +223,7 @@ var enemyInfo = [
    {
       name: "Roborto",
       attack: randomNumber(10, 14),
+      health: 50,
       //   shield: {
       //   type: "wood",
       //   strength: 10
@@ -217,10 +231,12 @@ var enemyInfo = [
    {
       name: "Amy Android",
       attack: randomNumber(10, 14),
+      health: 50,
    },
    {
       name: "Robo Trumble",
       attack: randomNumber(10, 14),
+      health: 50,
    },
 ];
 
