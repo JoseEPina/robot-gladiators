@@ -115,12 +115,33 @@ var fight = function (enemy) {
 
 // Function to end the entire game
 var endGame = function () {
-   // If the player is still alive, player wins!
-   if (playerInfo.health > 0) {
-      window.alert("Great job, you have survived the game! You now have a score of " + playerInfo.money + ".");
-   } else {
-      window.alert("You have lost your robot in batte.");
+   window.alert("The game has now ended. Let's see how you did!");
+   // Save the high score
+   // Assign the Key of the current highest score to a var
+   var currentHighestScore = "currentHighestScore";
+   // Assign a new key for the player name with the highest score
+   var newHighScorePlayerName = "newHighScorePlayerName";
+
+   var highestScore = localStorage.getItem(currentHighestScore);
+   if (highestScore === null) {
+      highestScore = 0;
    }
+
+   // if player has more money than the high score, player has new high score!
+   if (playerInfo.money <= highestScore) {
+      window.alert(playerInfo.name + " did not beat the high score of " + highestScore + ". Maybe next time!");
+   } else {
+      localStorage.setItem(currentHighestScore, playerInfo.money);
+      localStorage.setItem(newHighScorePlayerName, playerInfo.name);
+      window.alert(
+         "Congratulations! " +
+            playerInfo.name +
+            " now has the high score of " +
+            playerInfo.money +
+            "! You beat the current Highest Score!"
+      );
+   }
+   // ask player if they'd like to play again
    var playAgainConfirm = window.confirm("Would you like to play again?");
    if (playAgainConfirm) {
       // Restart the game
